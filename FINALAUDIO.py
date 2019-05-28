@@ -4,16 +4,18 @@ import time
 import threading
 import pyaudio
 from scipy.io import wavfile
-import FinalOverlap
-
+#import FinalOverlap
+import os
+from pydub import AudioSegment
 
 fs = 8000
 p = pyaudio.PyAudio()
 
 class Sound(threading.Thread):
-    def __init__(self, f, stretch_factor, volume, j):
+    def __init__(self, f, stretch_factor, volume, j, directory):
         threading.Thread.__init__(self)
         self.f = f
+        self.directory=directory
         self.stretch_factor = stretch_factor
         self.volume = volume
         self.fs = 8000
@@ -63,17 +65,16 @@ class Sound(threading.Thread):
         
         self.p.terminate()
         
-        wavfile.write(r"C:\Users\heito\Desktop\UCSB\Spring 2019\15C\Music\Separate_Sounds\sound_" + str(self.j) + ".wav", self.fs, self.sample1.astype('float32'))      
+        path1=os.path.join(self.directory,'Separate_Sounds')
+        wavfile.write(os.path.join(path1,"sound_" + str(self.j) + ".wav"), self.fs, self.sample1.astype('float32'))      
+        #wavfile.write(r"C:\Users\heito\Desktop\UCSB\Spring 2019\15C\Music\Separate_Sounds\sound_" + str(self.j) + ".wav", self.fs, self.sample1.astype('float32'))      
        # self.sample1.export(r"C:\Users\heito\Desktop\UCSB\Spring 2019\15C\Music\Separate_Sounds\sound_" + str(self.j) + ".wav", format="wav")
-        
-        
-        print("Pyaudio terminated")
         
 
 #objs = []
 #number_of_threads = 3
-def sound(color1, color2, color3, k):
-    objs = [Sound(color1[0], color1[1], color1[2], 1), Sound(color2[0], color2[1], color2[2], 2), Sound(color3[0], color3[1], color3[2], 3)]
+def sound(color1, color2, color3, k, directory):
+    objs = [Sound(color1[0], color1[1], color1[2], 1, directory), Sound(color2[0], color2[1], color2[2], 2, directory), Sound(color3[0], color3[1], color3[2], 3, directory)]
 
     for i in range(len(objs)):
         objs[i].start()
@@ -81,7 +82,30 @@ def sound(color1, color2, color3, k):
     for i in range(len(objs)):
         objs[i].join()
         
-    FinalOverlap.Overlapsong(k)
+    Overlapsong(k,directory)
+    
+def Overlapsong(k,directory):
+    os.chdir(os.path.join(directory,'Separate_Sounds'))
+    infiles = []
+    for root, dirs, files in os.walk(os.path.join(directory,'Separate_Sounds')):  
+        for filename in files:
+           infiles.append(filename)
+        
+    infiles = ['sound_1.wav', 'sound_2.wav', 'sound_3.wav']
+    print(infiles)
+    sound_string = []#*(len(infiles)*2-1)
+    combined_sounds=[]
+    #cut
+    ii=0
+    time_overlap=500
+    file_1 = AudioSegment.from_wav(infiles[0])
+    file_2 = AudioSegment.from_wav(infiles[1])
+    file_3 = AudioSegment.from_wav(infiles[2])
+    overlap_1 = file_1.overlay(file_2)
+    overlap_2=overlap_1.overlay(file_3)
+        
+
+    overlap_2.export(os.path.join(directory,'FinalSong\overlap' +str(k)+'.wav'), format='wav')
 
 def sound1(color1, color2, color3, i):
     exp1 = 36*color1[0]/360
