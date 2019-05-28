@@ -4,7 +4,7 @@ import random
 import numpy as np
 import PIL.Image
 import os
-
+#
 
 Point = namedtuple('Point', ('coords', 'n', 'ct'))
 Cluster = namedtuple('Cluster', ('points', 'center', 'n'))
