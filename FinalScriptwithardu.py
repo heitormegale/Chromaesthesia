@@ -10,9 +10,10 @@ import Audiofinal7 as adfin
 import os
 import glob
 import serial
+#from pydub import AudioSegment
 #from serial import Serial
 #import AudioFinalcompl as adfincompl
-
+directory="C:\\Users\\heito\\Desktop\\UCSB\\Spring 2019\\15C\\Music"
 
 connected= False
 ok =1
@@ -53,28 +54,31 @@ def RGB_HSI(x):
     return np.array([H, S, I])
 
 def sound(color1, color2, color3, k):
+    color1_edited = [0, 0, 0]
+    color2_edited = [0, 0, 0]
+    color3_edited = [0, 0, 0]
     exp1 = 36*color1[0]/360
     exp2 = 36*color2[0]/360
     exp3 = 36*color3[0]/360
-    color1[0] = (2**(exp1/12))*440
-    color2[0] = (2**(exp2/12))*440
-    color3[0] = (2**(exp3/12))*440
+    color1_edited[0] = (2**(exp1/12))*440
+    color2_edited[0] = (2**(exp2/12))*440
+    color3_edited[0] = (2**(exp3/12))*440
     
-    color1[1] = color1[1]*50+3
-    color2[1] = color2[1]*50+3
-    color3[1] = color3[1]*50+3
+    color1_edited[1] = color1[1]*50+3
+    color2_edited[1] = color2[1]*50+3
+    color3_edited[1] = color3[1]*50+3
     
-    color1[2] = color1[2]/5+0.2
-    color2[2] = color2[2]/5+0.2
-    color3[2] = color3[2]/5+0.2
+    color1_edited[2] = color1[2]/5+0.2
+    color2_edited[2] = color2[2]/5+0.2
+    color3_edited[2] = color3[2]/5+0.2
         
     #volume = [color1[1]/10, color2[1]/10, color3[1]/10]
     #length = [color1[2]*20, color2[2]*20, color3[2]*20]
 
-    rlrlsound.sound(color1, color2, color3, k)
-    return color1, color2, color3
+
+    return color1_edited, color2_edited, color3_edited
     
-def sound_tuned(color1, color2, color3, k):
+def sound_tuned(color1, color2, color3):
 
     color1[0] = np.exp(3.298)*np.exp(0.001966*color1[0])
     color2[0] = np.exp(3.298)*np.exp(0.001966*color2[0])
@@ -92,14 +96,15 @@ def sound_tuned(color1, color2, color3, k):
     #volume = [color1[1]/10, color2[1]/10, color3[1]/10]
     #length = [color1[2]*20, color2[2]*20, color3[2]*20]
 
-    rlrlsound.sound(color1, color2, color3, k)
     return color1, color2, color3
       
                   
 t_begin = time.perf_counter()
 
-
-files = glob.glob(r"C:\Users\heito\Desktop\UCSB\Spring 2019\15C\Music\FinalSong\*")
+Final_song=os.path.join(directory,'FinalSong')
+Final_folder=os.path.join(directory,'FinalFolder')
+#files = glob.glob(r"C:\Users\heito\Desktop\UCSB\Spring 2019\15C\Music\FinalSong\*")
+files = glob.glob(os.path.join(Final_song,"*"))
 for f in files:
     os.remove(f)
 
@@ -133,14 +138,14 @@ while ok==1:
             height, width, channels = frame.shape
             frame = frame[int(1/3*(height)):int(2/3*(height)), int(1/3*(width)):int(2/3*(width))]
     
-            cv2.imwrite(r'C:\Users\heito\Desktop\UCSB\Spring 2019\15C\Music\FinalFolder\image.jpg', frame)
+            cv2.imwrite(os.join(Final_folder,"image.jpg"), frame)
         
     
             ser.write(b'1')
             
     
     
-            os.chdir(r"C:\Users\heito\Desktop\UCSB\Spring 2019\15C\Music\FinalFolder")
+            os.chdir(Final_folder)
     
     
             b = imalgo.colorz('image.jpg')
@@ -175,7 +180,8 @@ while ok==1:
             l.append(np.array(color2HSI))
             l.append(np.array(color3HSI))
             
-            sound(color1HSI, color2HSI, color3HSI, k)
+            color1_edited, color2_edited, color3_edited = sound(color1HSI, color2HSI, color3HSI)
+            rlrlsound.sound(color1_edited, color2_edited, color3_edited, k)
             plt.close()
             k = k+1
             
@@ -188,13 +194,13 @@ while ok==1:
                 height, width, channels = frame.shape
                 frame = frame[int(1/3*(height)):int(2/3*(height)), int(1/3*(width)):int(2/3*(width))]
     
-                cv2.imwrite(r'C:\Users\heito\Desktop\UCSB\Spring 2019\15C\Music\FinalFolder\image.jpg', frame)
-        
+                #cv2.imwrite(r'C:\Users\heito\Desktop\UCSB\Spring 2019\15C\Music\FinalFolder\image.jpg', frame)
+                cv2.imwrite(os.join(Final_folder,"image.jpg"), frame)
     
    
     
-                os.chdir(r"C:\Users\heito\Desktop\UCSB\Spring 2019\15C\Music\FinalFolder")
-    
+                #os.chdir(r"C:\Users\heito\Desktop\UCSB\Spring 2019\15C\Music\FinalFolder")
+                os.chdir(Final_folder)
     
                 b = imalgo.colorz('image.jpg')
         
@@ -221,7 +227,8 @@ while ok==1:
                 print(color1HSI)
                 print(color2HSI)
                 print(color3HSI)
-                sound(color1HSI, color2HSI, color3HSI, k+1)
+                color1_edit, color2_edit, color3_edit = sound(color1HSI, color2HSI, color3HSI)
+                rlrlsound.sound(color1_edit, color2_edit, color3_edit)
                 plt.close()
                 print(time.perf_counter()-t_start)
                 
@@ -233,5 +240,5 @@ while ok==1:
     
                 
 ser.close()
-adfin.Finalsong()
+adfin.Finalsong(directory)
 #adfincompl.sound(l)
