@@ -16,10 +16,71 @@ Since the maping of sounds to color in persons with Chrmaestesia is very unique 
 
 The following is an example of an image scanned in a grid of XxY and the sound output produced:
 
-![DemoImage](demo.jpg)  
+![DemoImage](demos/demo.jpg)  
 
 
-![DemoAudio](demosong.wav)  
+![DemoAudio](demos/demosong1.mp3)  
+
+# Necessary libraries and instalation
+
+You will need several python lybraries and programs in order to execute our project.
+
+Apart from the conventional libraries you will need the following:
+
+* pydub
+
+* pygame
+
+* pyserial
+
+* cv2
+
+Cv2 might be the trickest to install, however you can find instructions on their website https://pypi.org/project/opencv-python/ ,
+while the others can be installed by running ``` pip install 'lybrary' ``` on your python shell command prompt.
+
+The program utilizes three folders in the directory of your choice to store the sounds the will be used during the composition.
+To create this folders download the ``` Setup.py ``` script and alocate it to the directory you want he program to be ran and used.
+On the script you will need to change the path to your directory's path as indicated below:
+
+```pythonscript
+#SetUp
+import os
+directory="C:\\Users\\heito\\Desktop\\UCSB\\Spring 2019\\15C\\Music" #<-- your directory
+os.chdir(directory)
+def createFolder(folder):
+    try:
+        if not os.path.exists(folder):
+            os.makedirs(folder)
+    except OSError:
+        print('Error: Creating directory. ' + folder)
+#createFolder('.\\test\\')
+
+createFolder('\\FinalSong\\')
+createFolder('\\FinalFolder\\')
+createFolder('\\Separate_Sounds\\')
+```
+
+Once the setup is ran you will need to alocate all the following scripts to the same folder you allocated and ran ``` Setup.py ```.
+ * all the codes
+ 
+ What each script does is described in their own descriotions and will also be explained here.
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Our goal was to create a scanner that would transform an image to a song, based on its colors.
