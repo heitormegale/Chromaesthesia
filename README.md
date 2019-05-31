@@ -47,7 +47,7 @@ In order to visualize the colors we have implemented a function, to try to visua
 
 * webcolors
 
-Another aspect of our code is the GUI, which, while still in a very primitive state requires installation of:
+Another aspect of our code is the GUI, which, while still in a primitive state requires installation of:
 
 * PyQt5
 
@@ -79,11 +79,27 @@ createFolder('\\Separate_Sounds\\')
 ```
 
 Once the setup is ran you will need to alocate all the following scripts to the same folder you allocated and ran ``` Setup.py ```.
- * all the codes
+ * all the code
+ The role each of these scripts plays in the project is explained in their own descriptions and will also be examplified here.
  
- What each script does is described in their own descriotions and will also be explained here.
- 
+As a demonstration, if you run ``` Programwithout_ardu.py ``` you will be asked which translation technique you want to use, chose one and it should capture an image from your webcamera and produce one sound. This sound is in reality the overlap of three tones extracted from the image, if you check your ``` SeparateSounds``` folder, you can hear each individual tone.
 
+
+
+
+ 
+ ## Image processing
+ The sript ``` ImageAlgorithm.py``` is the responsable for analyzing the given picture.
+ As a output from this script we have the three most dominant colors in RGB format(?).
+ 
+ ## Arduino Code
+ 
+In order to use our scanner to take multiple pictures of agiven image we need a controler for the movement. Here we wrote an arduino script named ```ControlScanner.ino``` . In this script we are controling two stepper motors through two EasyDrivers XXXX and receving information from 2 limit switches. Thus in this setup we utilize 12 pins of the Arduino. The code is structured so that it communicates with the python scipt ``` Final_with_ardu.py ```. Once the python code gives a signal for the arduino to start it will move the scanner in the x direction ultil it hits the first limit switch. Then it activate the other motor moving the scanner in the y direction ultil it hits the second limit switch. After the delimeters of the picture that will be scanned are defined the camera will move in a zig-zag shape, forming a grid. The code was built so that the camera will move to the next square only after a picture has been taken. The size of the grid can be defined in the top of the arduino code:
+```cscript
+int xpartitions= 3;
+int ypartitions =3;
+```
+In the end of the motion the camera will have covered the entire picture and will return to its initial place, the arduino code will restart itself and will be ready to be used again.
 
 
 
