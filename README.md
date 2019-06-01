@@ -21,7 +21,7 @@ The following is an example of an image scanned in a grid of XxY and the sound o
 
 ![DemoAudio](demos/demosong1.mp3)  
 
-# Necessary libraries and instalation
+## Necessary libraries and instalation
 
 You will need several python lybraries and programs in order to execute our project.
 
@@ -86,13 +86,13 @@ As a demonstration, if you run ``` Programwithout_ardu.py ``` you will be asked 
 
 
 
-
+## Components 
  
- ## Image processing
+ ### Image processing
  The sript ``` ImageAlgorithm.py``` is the responsable for analyzing the given picture.
  As a output from this script we have the three most dominant colors in RGB format(?).
  
- ## Arduino Code
+ ### Arduino Code
  
 In order to use our scanner to take multiple pictures of agiven image we need a controler for the movement. Here we wrote an arduino script named ```ControlScanner.ino``` . In this script we are controling two stepper motors through two EasyDrivers XXXX and receving information from 2 limit switches. Thus in this setup we utilize 12 pins of the Arduino. The code is structured so that it communicates with the python scipt ``` Final_with_ardu.py ```. Once the python code gives a signal for the arduino to start it will move the scanner in the x direction ultil it hits the first limit switch. Then it activate the other motor moving the scanner in the y direction ultil it hits the second limit switch. After the delimeters of the picture that will be scanned are defined the camera will move in a zig-zag shape, forming a grid. The code was built so that the camera will move to the next square only after a picture has been taken. The size of the grid can be defined in the top of the arduino code:
 ```cscript
@@ -101,10 +101,27 @@ int ypartitions =3;
 ```
 In the end of the motion the camera will have covered the entire picture and will return to its initial place, the arduino code will restart itself and will be ready to be used again.
 
+### Translation to sound
 
 
+### Creating a Melody
 
+The python script ```MelodyCreator.py``` is the responsable for combining all the individual sounds into a final melody. It does that by separating the first sound file into two parts. The second part will be combined with a segment of the next sound with the same length. By doing thid=s we overlap the decay of one sound with the begging of the other, giving it a more natural sound. Notice that you can change this overlap by changing the following value:
+```pythonscript
+time_overlap=3*len(file_ii)/4
+```
+The overlap is based on the length of the file, thus if the files have the same length the end result will play at a constant bpm.
 
+The initial part of the sound and the overlap are stiched toghether, then the process will be repeated for all sounds, being mindfull that they should start at the end of the last one.
+An example of a final melody can be found below:
+
+![Odeofjoy](demos/Odeofjoy.mp3) 
+
+In this code we made use of the pydub lybrary to edit the sound files ina intuitive way.
+### The scanner
+
+To build the scanner we took inspiration on how 3D printers are designed, in our case a two axes system was necessary instead of three.
+The skeleton of the scanner was a wooden box, large enought to house the components and to scan a sizable paper. The first motor is attached to the bottom with a belt connecting its pulley to an upper gear. This one is connected to an axel that rotates two other pulleys. Each one of those, locatted in the corner of the box, rotates a belt that will slide a pice throught a rod. This piece was designed by us and it is in the folder ``` 3d Designs``` as ```axisconnector.f3d```. Its function is to slide in one axis, pulled by the belt, while supporting the machinery that will move the second axis. We set up another axis using this two connectors, the second motor on one and a puley fixed to the other. The belt taht is moved will slide the camera house (```camera_house.f3d```), so that the camera can now cover the xy plane.
 
 
 
