@@ -103,6 +103,8 @@ In the end of the motion the camera will have covered the entire picture and wil
 
 ### Translation to sound
 
+### GUI
+
 
 ### Creating a Melody
 
@@ -125,8 +127,20 @@ The skeleton of the scanner was a wooden box, large enought to house the compone
 
 
 
+## Motivation and importance
+
+Our project came from the idea to create a tool for artists and musicians to seek inspiration on other sources. The translation of colors to sound at a ceartain point in our project became the main theme, the possibilities were multiple and the ones we settled on served our porporse.
+Similar technologies of translation of visual information to sound have been used by Doctor Amedi's lab (https://www.brainvisionrehab.com/) to create a device that translates distance into different sounds. By doing this the group has helped blind individuals avoid head collisions with objects and better slef locate themselves.
+Here, our project could be used to help colorblind and blind individuals to experience the difference between colors, by translating those to heaaring information.
 
 
+## Future directions
+
+Our project can be further developed, this is partially why we are posting it here so other people can build on top of what we have done.
+Some ideas we had, but didn't have time to implement were: 
+Modifying the sound algorithm to produce sounds that more closely resemble instruments, by adding a attack time, a hold time and utilize other periodic functions instead of pure sine waves, like saw shape function.
+Develop other translation methods.
+Increase the speed of the sound generation and come to closer to a real time translation.
 
 
 
