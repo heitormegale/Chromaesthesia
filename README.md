@@ -9,10 +9,10 @@ Chromaestesia is a natural conditional where sounds produce the sensation of col
 On top of the programing we built a mechanical scanner that moves a camera to take multiple pictures of the image being analyzed. Each picture is transformed into three tones and the full image will sound like a music.
 
 
-The code can be used independently of the scanner and it can analyze pictures in your computer or an image from your webcamera. However, in this case it would produce a individual sound since it analyzes one picture. You could modify the code to run throught multiple images and produce a song or analyze piece by piece a individual image.
+The code can be used independently of the scanner and it can analyze pictures in your computer or an image from your webcamera. However, in this case it would produce a individual sound since it analyzes one picture. You could modify the code to run throught multiple images and produce a song or analyze piece by piece an individual image.
 
 
-Since the maping of sounds to color varies from person to person with Chrmaestesia, there is no clear pattern to follow and is thus open to artistic interpretation. is very unique and doesn't follow a pattern across the who has the condition, our task to reverse this process isn't dictated by any defined translation. Thus, we created multiple methods, each with its downsides and upsides, that we will describe later. Of course, anyone is encouraged to expand on these methods with innovative ideas that could improve the experience.
+Since the maping of sounds to color varies from person to person with Chrmaestesia, there is no clear pattern to follow and it is open to artistic interpretation.Because the sensation is very unique and doesn't follow a pattern across who has the condition, our task to reverse this process isn't dictated by any defined translation. Thus, we created multiple methods, each with its downsides and upsides, that we will describe later. Of course, anyone is encouraged to expand on these methods with innovative ideas that could improve the experience.
 
 The following is an example of an image scanned in a grid of XxY and the sound output produced:
 
@@ -61,21 +61,19 @@ To create this folders download the ``` Setup.py ``` script and alocate it to th
 On the script you will need to change the path to your directory's path as indicated below:
 
 ```pythonscript
-#SetUp
 import os
 directory="C:\\Users\\heito\\Desktop\\UCSB\\Spring 2019\\15C\\Music" #<-- your directory
 os.chdir(directory)
-def createFolder(folder):
+def createFolder(directory):
     try:
-        if not os.path.exists(folder):
-            os.makedirs(folder)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
     except OSError:
-        print('Error: Creating directory. ' + folder)
-#createFolder('.\\test\\')
+        print('Error: Creating directory. ' + directory)
 
-createFolder('\\FinalSong\\')
-createFolder('\\FinalFolder\\')
-createFolder('\\Separate_Sounds\\')
+createFolder(os.path.join(directory,'FinalSong'))
+createFolder(os.path.join(directory,'ImageFolder'))
+createFolder(os.path.join(directory,'Separate_Sounds'))
 ```
 
 Once the setup is ran you will need to alocate all the following scripts to the same folder you allocated and ran ``` Setup.py ```.
