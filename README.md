@@ -94,6 +94,8 @@ As a demonstration, if you run ``` Programwithout_ardu.py ``` you will be asked 
  This works, by initially selecting some 'centroids'. Next, we can run through all other points in that image, computing the distance to the closest centroid. After this, knowing which points are attributed to what cluster, we can average the coordinates. This will find the new centroid. Now we can run the method again, by finding the distance to the newest closest cluster. If none of the points switched from the last iteration to the next, we can say that we have found an equilibrium and thus have found the 3 most dominant colors. If not, it will require a new iteration, to find a closer centroid.
 
 Thus, after running the k-means algorithmm with the image we obtain the 3 most dominant colors of the image. We then, convert these colors to HSV (Hue-Saturation-Value), as this will work better with our idea of the color-sound algorithm. While we haven't generalized the program yet, it should be fairly easy to extend the algorithm to find the n most dominant colors of the image.
+
+![K-means](demos/k-means_git_hub.mp3) 
  
  ### Arduino Code
  
