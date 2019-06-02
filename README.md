@@ -79,7 +79,8 @@ createFolder('\\Separate_Sounds\\')
 ```
 
 Once the setup is ran you will need to alocate all the following scripts to the same folder you allocated and ran ``` Setup.py ```.
- * all the code
+ * all the codes
+ 
  The role each of these scripts plays in the project is explained in their own descriptions and will also be examplified here.
  
 As a demonstration, if you run ``` Programwithout_ardu.py ``` you will be asked which translation technique you want to use, chose one and it should capture an image from your webcamera and produce one sound. This sound is in reality the overlap of three tones extracted from the image, if you check your ``` SeparateSounds``` folder, you can hear each individual tone.
