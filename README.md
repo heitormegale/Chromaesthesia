@@ -1,5 +1,5 @@
 # Chromaesthesia
-The creators are: Daniele Offidani, Heitor Megale and Sven Witthaus.
+Developed by: Daniele Offidani, Heitor Megale and Sven Witthaus.
 
 
 This is a python project where we convert colors from an image to a melody. Our objective was to simulate a type of synesthesia. Synesthesia is a sensorial condition where different senses activate each other, that is the perception of one sense leads to an involuntary perception of another sense. In our case we would be creating a reverse Chromaestesia.
