@@ -91,26 +91,26 @@ As a demonstration, if you run ``` Programwithout_ardu.py ``` you will be asked 
  The sript ``` ImageAlgorithm.py``` is the responsable for analyzing the given picture.
  This uses the popular method of k-clustering. Interestingly enough, typically this works using coordinates, rather than colors. But, using the RGB color scheme, which can be visualized as a square, we can pretend that the coordinates are actually RGB values and distances are Pythagorean distances from each other.
  
- This works, by selecting some 'centroids' at the beginning of the algorithm. Next, we can run through all other points in that image, computing the distance to the closest centroid. After this, knowing which points are attributed to what cluster, we can average the coordinates. This will find the new centroid. Now we can run the method again, by finding the distance to the newest closest cluster. If none of the points switched from the last iteration to the next, we can say that we have found an equilibrium and thus have found the 3 most dominant colors. If not, it will require a new iteration, to find a closer centroid.
+ This works, by initially selecting some 'centroids'. Next, we can run through all other points in that image, computing the distance to the closest centroid. After this, knowing which points are attributed to what cluster, we can average the coordinates. This will find the new centroid. Now we can run the method again, by finding the distance to the newest closest cluster. If none of the points switched from the last iteration to the next, we can say that we have found an equilibrium and thus have found the 3 most dominant colors. If not, it will require a new iteration, to find a closer centroid.
 
 Thus, after running the k-means algorithmm with the image we obtain the 3 most dominant colors of the image. We then, convert these colors to HSV (Hue-Saturation-Value), as this will work better with our idea of the color-sound algorithm. While we haven't generalized the program yet, it should be fairly easy to extend the algorithm to find the n most dominant colors of the image.
  
  ### Arduino Code
  
-In order to use our scanner to take multiple pictures of agiven image we need a controler for the movement. Here we wrote an arduino script named ```ControlScanner.ino``` . In this script we are controling two stepper motors through two EasyDrivers XXXX and receving information from 2 limit switches. Thus in this setup we utilize 12 pins of the Arduino. The code is structured so that it communicates with the python scipt ``` Final_with_ardu.py ```. Once the python code gives a signal for the arduino to start it will move the scanner in the x direction ultil it hits the first limit switch. Then it activate the other motor moving the scanner in the y direction ultil it hits the second limit switch. After the delimeters of the picture that will be scanned are defined the camera will move in a zig-zag shape, forming a grid. The code was built so that the camera will move to the next square only after a picture has been taken. The size of the grid can be defined in the top of the arduino code:
+In order to use our scanner to take multiple pictures of a given image we need to control the movement of the camera. Here we wrote an arduino script named ```ControlScanner.ino``` . In this script we are controling two stepper motors through two Spark Fun's EasyDrivers (https://www.sparkfun.com/products/12779) and receving information from 2 limit switches. Thus in this setup we utilize 12 pins of the Arduino. The code is structured so that it communicates with the python scipt ``` Final_with_ardu.py ```. Once the python code gives a signal for the arduino to start it will move the scanner in the x direction until it hits the first limit switch. Then it activate the other motor moving the scanner in the y direction until it hits the second limit switch. After the delimeters of the picture that will be scanned are defined the camera will move in a zig-zag shape, forming a grid. The code was built so that the camera will move to the next square only after a picture has been taken. The size of the grid can be defined in the top of the arduino code:
 ```cscript
 int xpartitions= 3;
 int ypartitions =3;
 ```
 In the end of the motion the camera will have covered the entire picture and will return to its initial place, the arduino code will restart itself and will be ready to be used again.
-
+To desing this code we took inspiration from the following 1 motor tutorial: https://www.brainy-bits.com/stepper-motor-with-joystick-and-limit-switches/
 ### Translation to sound
 
 ### GUI
 
 The GUI has been designed using Qt Creator. While still a prototype, this GUI mainly is used to more freely choose between what algorithm one wishes to use. In the GUI, one should press the button, which should start the Image-Sound-Arduino Algorithm, with the chosen conversion method as its principle.
 
-Other ideas, that we yet have to implement is to implement a widget according to which the user has a free choice of what color corresponds to the lowest tone. By default, this is red, it having 0/360 Hue value. However, with this method one could choose what value corresponds to 0, by simplying subtracting the desired Hue from 360. 
+Other ideas, that we yet have to implement is to implement a widget according to which the user has a free choice of what color corresponds to the lowest tone. By default, this is red, it having 0/360 Hue value. However, with this method one could choose what value corresponds to 0, by subtracting the desired Hue from 360. 
 
 ### Creating a Melody
 
