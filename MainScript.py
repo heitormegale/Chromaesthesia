@@ -139,75 +139,60 @@ class Sound():
     
         return [f, stretch, volume]
     
-    def sound_tuned(self, color1, color2, color3):
-        if color1[2] >=0:
-            if color1[1] <= 0.15:
-                if color1[2] <= 0.85:
-                    color1[0] = 220*np.exp(color1[0]/(12*360))
-                    print(color1[0])
-                else:
-                    color1[0] = 880*np.exp(color1[0]/(12*360)) 
-                    print(color1[0])
-            else:
-                if color1[2] <= 0.15:
-                    color1[0] = 110*np.exp(color1[0]/(12*360))
-                    print(color1[0])
-                else:
-                    if color1[2] <= 0.35:
-                        color1[0] = 220*np.exp(color1[0]/(12*360))
-                        print(color1[0])
-                    else:
-                        color1[0] = 440*np.exp(color1[0]/(12*360))
-                        print(color1[0])  
-        if color2[2] >=0:
-            if color2[1] <= 0.15:
-                if color2[2] <= 0.85:
-                    color2[0] = 220*np.exp(color2[0]/(12*360))
-                    print(color2[0])
-                else:
-                    color2[0] = 880*np.exp(color2[0]/(12*360))
-                    print(color2[0]) 
-            else:
-                if color2[2] <= 0.15:
-                    color2[0] = 110*np.exp(color2[0]/(12*360))
-                    print(color2[0])
-                else:
-                    if color2[2] <= 0.35:
-                        color2[0] = 220*np.exp(color2[0]/(12*360))
-                        print(color2[0])
-                    else:
-                        color2[0] = 440*np.exp(color2[0]/(12*360))
-                        print(color2[0])  
-    
-        if color3[2] >=0:
-            if color3[1] <= 0.15:
-                if color3[2] <= 0.85:
-                    color3[0] = 220*np.exp(color3[0]/(12*360))
-                    print(color3[0])
-                else:
-                    color3[0] = 880*np.exp(color3[0]/(12*360))
-                    print(color3[0]) 
-            else:
-                if color3[2] <= 0.15:
-                    color3[0] = 110*np.exp(color3[0]/(12*360))
-                    print(color3[0])
-                else:
-                    if color3[2] <= 0.35:
-                        color3[0] = 220*np.exp(color3[0]/(12*360))
-                        print(color3[0])
-                    else:
-                        color3[0] = 440*np.exp(color3[0]/(12*360))
-                        print(color3[0])  
-        
-        color1[1] = color1[1]*50+3
-        color2[1] = color2[1]*50+3
-        color3[1] = color3[1]*50+3
-        
 
-        color1[2] = color1[2]/5+0.2
-        color2[2] = color2[2]/5+0.2
-        color3[2] = color3[2]/5+0.2
-        return color1, color2, color3    
+    def sound_tuned(self, color):
+        #Hue 0
+        if (color[0]-self.qHSV[0]) < 0:
+            color[0] = 360-color[0]+self.qHSV[0]
+        else:    
+            color[0] = color[0]-self.qHSV[0] 
+               
+        #Daniele Sound
+        if color[2] >=0:
+       
+            if color[1] <= 0.15:
+           
+                if color[2] <= 0.85:
+                    color[0] = 220*(2**(color[0]/360))
+                    print(color[0])
+                    
+                else:
+                    color[0] = 880*(2**(color[0]/360)) 
+                    print(color[0])
+               
+            else:
+           
+                if color[2] <= 0.15:
+                    color[0] = 110*(2**(color[0]/360))
+                    print(color[0])
+               
+                else:
+               
+                    if color[2] <= 0.35:
+                        color[0] = 220*(2**(color[0]/360))
+                        print(color[0])
+                   
+                    else:
+                        color[0] = 440*(2**(color[0]/360))
+                        print(color[0]) 
+                        
+        #Stretch                  
+        if (color[1]-self.qHSV[1]) < 0:
+            color[1] = 1-color[1]+self.qHSV[1]
+        else:
+            color[1]=color[1]-self.qHSV[1]
+  
+        color[1] = color[1]*50+3
+
+        #Volume
+        if (color[2]-q[2]) < 0:
+            color[2] = 1-color[2]+self.qHSV[2]
+        else:
+            color[2]=color[2]-self.qHSV[2]
+
+        color[2] = color[2]/5+0.2        
+
+        return color    
                 
     def run(self, directory):
         connected= False
@@ -224,6 +209,7 @@ class Sound():
         Final_folder=os.path.join(directory,'ImageFolder')
         #files = glob.glob(r"C:\Users\heito\Desktop\UCSB\Spring 2019\15C\Music\FinalSong\*")
         files = glob.glob(os.path.join(Final_song,"*"))
+        
         for f in files:
             os.remove(f)
 
@@ -306,7 +292,9 @@ class Sound():
                         color3_edited = self.sound(color3HSI)
                         
                     if self.h == 2:
-                        color1_edited, color2_edited, color3_edited = self.sound_tuned(color1HSI, color2HSI, color3HSI)
+                        color1_edited = self.sound_tuned(color1HSI)
+                        color2_edited = self.sound_tuned(color2HSI)
+                        color3_edited = self.sound_tuned(color3HSI)
                         
                     rlrlsound.sound(color1_edited, color2_edited, color3_edited, k, directory)
                     plt.close()
