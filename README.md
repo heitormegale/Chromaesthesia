@@ -97,11 +97,11 @@ Thus, after running the k-means algorithmm with the image we obtain the 3 most d
 ```pythonscript
 Clusters = KMeans(n_clusters=3, random_state=0).fit(points)
 ```
-However, while it is easy to cahnge the number of colors here, the rest of our codes like the sound algorithm was designed to work with three colors. Thus one would need to generalize the rest of the code in order to do that.
+However, while it is easy to change the number of colors here, the rest of our codes like the sound algorithm was designed to work with three colors. Thus one would need to generalize the rest of the code in order to do that.
 
-The following image illustrates our procedure, where each black dot corresponds to the center of mass of each color.
+The following gif illustrates our procedure, where each large dot corresponds to the center of mass of the clusters, and just like in our algorithm the centers get more exact in each iteration.
 ![K-means](demos/centroidsEvolutionkmeans.gif) 
- 
+ Image from: http://enhancedatascience.com/2017/10/24/machine-learning-explained-kmeans/
  ### Arduino Code
  
 In order to use our scanner to take multiple pictures of a given image we need to control the movement of the camera. Here we wrote an arduino script named ```ControlScanner.ino``` . In this script we are controling two stepper motors through two Spark Fun's EasyDrivers (https://www.sparkfun.com/products/12779) and receving information from 2 limit switches. Thus in this setup we utilize 12 pins of the Arduino. The code is structured so that it communicates with the python scipt ``` Final_with_ardu.py ```. Once the python code gives a signal for the arduino to start it will move the scanner in the x direction until it hits the first limit switch. Then it activate the other motor moving the scanner in the y direction until it hits the second limit switch. After the delimeters of the picture that will be scanned are defined the camera will move in a zig-zag shape, forming a grid. The code was built so that the camera will move to the next square only after a picture has been taken. The size of the grid can be defined in the top of the arduino code:
@@ -113,7 +113,7 @@ In the end of the motion the camera will have covered the entire picture and wil
 To desing this code we took inspiration from the following 1 motor tutorial: https://www.brainy-bits.com/stepper-motor-with-joystick-and-limit-switches/
 ### Translation to sound
 
-Since Chromesthesia is a very subjective experience, there is no “correct way” to translate colors into sounds. Hence, it makes sense to give to the user of the program a choice for the translation process. In this initial version of the program, three algorithms were implemented for sound-color conversion. The first algorithm was produced after assigning arbitrarily and in sequence various clean colors (colors with a hue multiple of 30º and 100% of saturation and volume) to clean notes (A, B, … G) and clean alterations of the same notes (A#, Gb, etc.). After having assigned each color to a frequency, the data points were run in a python program in order to find the best fitting function for translation. It turned out that a linear function was a good fit for the restricted range of one octave. 
+Since Chromesthesia is a very subjective experience, there is no "correct" way to translate colors into sounds. Hence, it makes sense to give to the user of the program a choice for the translation process. In this initial version of the program, three algorithms were implemented for sound-color conversion. The first algorithm was produced after assigning arbitrarily and in sequence various clean colors (colors with a hue multiple of 30º and 100% of saturation and volume) to clean notes (A, B, … G) and clean alterations of the same notes (A#, Gb, etc.). After having assigned each color to a frequency, the data points were run in a python program in order to find the best fitting function for translation. It turned out that a linear function was a good fit for the restricted range of one octave. 
 
 In order to adapt this function to multiple octaves, a binning system depending on the value and saturation of the color analyzed was conceived. The first parameter that the program examines is the saturation value. If the saturation is very low (color tending to white), the program then checks the value level to determine whether the color is very dark (dark-gray scale, hence a deeper sound) or a very bright one (tending to white hence producing a higher pitch sound. If the saturation is not low enough, then the octave range for the color translation is decided only basing on the value parameter. Three ranges were implemented, corresponding to octaves starting at 110, 220 and 440 Hz frequencies. This binning system was implemented also for one of the other two conversion functions. The linear fits were modified for each octave according to new assignation between colors’ hues and clean notes (Note that since clean notes correspond to 2^(1/12) multiple increments starting at 27.5 Hz, a linear fit ranging all the audible octaves is nonsensical and extremely inaccurate).  
 
@@ -123,13 +123,13 @@ Lastly, the third conversion method that we implemented combines characteristics
 
 ### GUI
 
-The GUI has been designed using Qt Creator. While still a prototype, this GUI mainly is used to more freely choose between what algorithm one wishes to use. In the GUI, one should press the button, which should start the Image-Sound-Arduino Algorithm, with the chosen conversion method as its principle.
+The GUI has been designed using Qt Creator. While still a prototype, this GUI is manly used to more freely choose between what algorithm one wishes to use. In the GUI, one should press the button, which should start the Image-Sound-Arduino Algorithm, with the chosen conversion method as its principle.
 
-Other ideas, that we yet have to implement is to implement a widget according to which the user has a free choice of what color corresponds to the lowest tone. By default, this is red, it having 0/360 Hue value. However, with this method one could choose what value corresponds to 0, by subtracting the desired Hue from 360. 
+Other function, that have implemented is a widget according to which the user has a free choice of what color corresponds to the lowest tone. By default, this is red, it having 0/360 Hue value. However, with this method one could choose what value corresponds to 0, by subtracting the desired Hue from 360. 
 
 ### Creating a Melody
 
-The python script ```MelodyCreator.py``` is the responsable for combining all the individual sounds into a final melody. It does that by separating the first sound file into two parts. The second part will be combined with a segment of the next sound with the same length. By doing thid=s we overlap the decay of one sound with the begging of the other, giving it a more natural sound. Notice that you can change this overlap by changing the following value:
+The python script ```MelodyCreator.py``` is the responsable for combining all the individual sounds into a final melody. It does that by separating the first sound file into two parts. The second part will be combined with a segment of the next sound with the same length. By doing this we overlap the decay of one sound with the begging of the other, giving it a more natural sound. Notice that you can change this overlap by changing the following value:
 ```pythonscript
 time_overlap=3*len(file_ii)/4
 ```
@@ -139,7 +139,8 @@ The initial part of the sound and the overlap are stiched toghether, then the pr
 An example of a final melody can be found below:
 
 ![Odeofjoy](demos/Odeofjoy.mp3) 
-
+In this example we have reversed the sound translation code to create colors from sounds, thus we created the following image and scanned it to produce the sound above.
+![Joy](demos/Odeofjoy.png)
 In this code we made use of the pydub lybrary to edit the sound files ina intuitive way.
 ### The scanner
 
