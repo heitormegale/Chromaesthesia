@@ -139,8 +139,10 @@ The initial part of the sound and the overlap are stiched toghether, then the pr
 An example of a final melody can be found below:
 
 ![Odeofjoy](demos/Odeofjoy.mp3) 
+
 In this example we have reversed the sound translation code to create colors from sounds, thus we created the following image and scanned it to produce the sound above.
 ![Joy](demos/Odeofjoy.png)
+
 In this code we made use of the pydub lybrary to edit the sound files ina intuitive way.
 ### The scanner
 
