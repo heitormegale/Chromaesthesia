@@ -2,8 +2,7 @@
 Developed by: Daniele Offidani, Heitor Megale and Sven Witthaus.
 
 
-This is a python project where we convert colors from an image to a melody. Our objective was to simulate a type of synesthesia. Synesthesia is a sensorial condition where different senses activate each other, that is the perception of one sense leads to an involuntary perception of another sense. In our case we would be creating a reverse Chromaestesia.
-Chromaestesia is a natural conditional where sounds produce the sensation of color.
+This is a python project where we convert colors from an image to a melody. Our objective was to simulate a type of synaesthesia. Synaesthesia is a sensorial condition where different senses activate each other, that is the perception of one sense leads to an involuntary perception of another sense. Examples of synaesthesia include Mirror-touch synaesthesia or Auditary-tactile synaesthesia. We however, focused on Chromaesthesia, the natural condition where sounds produce a sensation of color. Specifically we have tried replicating reverse synaesthesia, that is the conversion of image to color.
 
 
 On top of the programing we built a mechanical scanner that moves a camera to take multiple pictures of the image being analyzed. Each picture is transformed into three tones and the full image will sound like a music.
@@ -102,6 +101,7 @@ However, while it is easy to change the number of colors here, the rest of our c
 The following gif illustrates our procedure, where each large dot corresponds to the center of mass of the clusters, and just like in our algorithm the centers get more exact in each iteration.
 ![K-means](demos/centroidsEvolutionkmeans.gif) 
  Image from: http://enhancedatascience.com/2017/10/24/machine-learning-explained-kmeans/
+ 
  ### Arduino Code
  
 In order to use our scanner to take multiple pictures of a given image we need to control the movement of the camera. Here we wrote an arduino script named ```ControlScanner.ino``` . In this script we are controling two stepper motors through two Spark Fun's EasyDrivers (https://www.sparkfun.com/products/12779) and receving information from 2 limit switches. Thus in this setup we utilize 12 pins of the Arduino. The code is structured so that it communicates with the python scipt ``` Final_with_ardu.py ```. Once the python code gives a signal for the arduino to start it will move the scanner in the x direction until it hits the first limit switch. Then it activate the other motor moving the scanner in the y direction until it hits the second limit switch. After the delimeters of the picture that will be scanned are defined the camera will move in a zig-zag shape, forming a grid. The code was built so that the camera will move to the next square only after a picture has been taken. The size of the grid can be defined in the top of the arduino code:
@@ -111,21 +111,50 @@ int ypartitions =3;
 ```
 In the end of the motion the camera will have covered the entire picture and will return to its initial place, the arduino code will restart itself and will be ready to be used again.
 To desing this code we took inspiration from the following 1 motor tutorial: https://www.brainy-bits.com/stepper-motor-with-joystick-and-limit-switches/
+
+
 ### Translation to sound
 
-Since Chromesthesia is a very subjective experience, there is no "correct" way to translate colors into sounds. Hence, it makes sense to give to the user of the program a choice for the translation process. In this initial version of the program, three algorithms were implemented for sound-color conversion. The first algorithm was produced after assigning arbitrarily and in sequence various clean colors (colors with a hue multiple of 30º and 100% of saturation and volume) to clean notes (A, B, … G) and clean alterations of the same notes (A#, Gb, etc.). After having assigned each color to a frequency, the data points were run in a python program in order to find the best fitting function for translation. It turned out that a linear function was a good fit for the restricted range of one octave. 
+Since Chromesthesia is a very subjective experience, there is no "correct" way to translate colors into sounds. Hence, it makes sense to give the user a choice for the translation process. In this initial version of the program, three algorithms were implemented for sound-color conversion. The first algorithm was produced after assigning arbitrarily and in sequence various clean colors (colors with a hue multiple of 30º and 100% of saturation and volume) to clean notes (A, B, … G) and clean alterations of the same notes (A#, Gb, etc.). After having assigned each color to a frequency, the data points were run in a python program in order to find the best fitting function for translation. It turned out that a linear function was a good fit for the restricted range of one octave. This method is found in the GUI under 'Linear Algorithm'.
 
-In order to adapt this function to multiple octaves, a binning system depending on the value and saturation of the color analyzed was conceived. The first parameter that the program examines is the saturation value. If the saturation is very low (color tending to white), the program then checks the value level to determine whether the color is very dark (dark-gray scale, hence a deeper sound) or a very bright one (tending to white hence producing a higher pitch sound. If the saturation is not low enough, then the octave range for the color translation is decided only basing on the value parameter. Three ranges were implemented, corresponding to octaves starting at 110, 220 and 440 Hz frequencies. This binning system was implemented also for one of the other two conversion functions. The linear fits were modified for each octave according to new assignation between colors’ hues and clean notes (Note that since clean notes correspond to 2^(1/12) multiple increments starting at 27.5 Hz, a linear fit ranging all the audible octaves is nonsensical and extremely inaccurate).  
+In order to adapt this function to multiple octaves, a threshold system designed to take into account the values and saturations of the analyzed colors was conceived. The first parameter that the program examines is the saturation value. If the saturation is very low (color tending to white), the program then checks the value level to determine whether the color is very dark (dark-gray scale, hence a deeper sound) or a very bright one (tending to white hence producing a higher pitch sound. If the saturation is not low enough, then the octave range for the color translation is decided only basing on the value parameter. Three ranges were implemented, corresponding to octaves starting at 110, 220 and 440 Hz frequencies. This binning system was implemented also for one of the other two conversion functions. The linear fits were modified for each octave according to new assignation between colors’ hues and clean notes (Note that since clean notes correspond to 2^(1/12) multiple increments starting at 27.5 Hz, a linear fit ranging all the audible octaves is nonsensical and extremely inaccurate). While this discrete way may look artificial to some, it has proven to be a very favorable algorithm, producing pleasurable notes.
 
-The second conversion method uses the fact that the notes in an octave range have frequencies of  f=f_(0 ) 2^(n/12)  where n = 1, 2, 3… and f_0 being the base frequency of the octave. The second method we implemented does not take into account the values of the volume and saturation of the analyzed color, but only its hue. In particular, since we wanted to apply the function to multiple octaves, we opted for a function that places the ends of the hue value (0º and 360º) at three octaves of difference: f_(360°)=8f_(0°) . Following the formula given above we obtained the conversion function: f=f_0 〖 2〗^(3h/360) where h is the hue value of the color analyzed.
+The second conversion method uses the fact that the notes in an octave range have frequencies of   
+![freq equation](https://latex.codecogs.com/gif.latex?f%20%3D%20f_0%202%5E%7B%5Cfrac%7Bn%7D%7B12%7D%7D)
+where n = 1, 2, 3… and f_0 being the base frequency of the octave. The second method we implemented does not take into account the values of the volume and saturation for the conversion to frequency of the analyzed color, but rather, only its hue. In particular, since we wanted to apply the function to multiple octaves, we opted for a function that places the ends of the hue value (0º and 360º) at three octaves of difference: 
+![freq_relation](https://latex.codecogs.com/gif.latex?f%28360%29%20%3D%208f%280%29)
+Following the formula given above we obtained the conversion function: 
+![freq_conversion](https://latex.codecogs.com/gif.latex?f%20%3D%20f_0%202%5E%7B%5Cfrac%7B3%20H%7D%7B360%7D%7D)
+where H is the hue value of the color analyzed. While this algorithm is very clean in nature, a disadvantage is its repetitiveness, producing very similar sounds frequently.
 
-Lastly, the third conversion method that we implemented combines characteristics of the first and second method. In particular, since given the nature of the second conversion method, same notes at different pitches, except for the most extreme ones, correspond to different colors, we chose the new function to range only on one octave. The function, therefore, has form       f=f_0  2^(h/360) .  In order to get other ranges of pitch, the trigger system used for the linear fit was applied, obtaining again 4 different octaves analyzable. Moreover, while in the first function we had to make different linear fits for different octaves, the only change that this conversion needs to work at different ranges is varying the base frequency f_0 .
+Lastly, the third conversion method that we implemented combines characteristics of the first and second method. In particular, since given the nature of the second conversion method, same notes at different pitches, except for the most extreme ones, correspond to different colors, we chose the new function to range over a single octave. The function, therefore, has form:
+![freq_conversion_1](https://latex.codecogs.com/gif.latex?f%20%3D%20f_0%202%5E%7B%5Cfrac%7BH%7D%7B360%7D%7D)
+In order to get other ranges of pitch, the trigger system used for the linear fit was applied, obtaining again 4 different octaves analyzable. Moreover, while in the first function we had to make different linear fits for different octaves, the only change that this conversion needs to work at different ranges is varying the base frequency f_0. This algorithm was chosen to be the most favorable, as it consistently produced nice sounds, while also being very intuitive in nature.
+
+
+### Sound Algorithm
+
+The Sound Algorithm was designed for the user to input 3 different edited colors, that is 3 frequencies, 3 stretch factors and 3 volumes. These values then will generate a note using these three parameters in unison as output. This script has been saved as 'FINALAUDIO.py'
+
+More specifically, the program mainly consist of a 'Sound' function, that will generate the desired sound, which the main algorithm will then thread together to create a unison sound. The Sound Algorithm uses a method called karplus-strong method, which is a popular technique in digital sound creation, that creates pleasent sound and still being very cheap. A detailed description of the algorithm is listed in the paper: 'Digital Synthesis of Plucked-String and Drum Timbres' (Karplus-Strong, 1983)
+
+Generally, this method creates a wavetable, that is inversely proportional to the frequency desired. Knowing the size, the algorithm can then create a list of numbers randomly distributed between -1 and 1. This table is then subjected to the karplus-strong algorithm. The simplest version of the karplus-strong algorithm will run through the entire series of points that make up the wave, and for each of them, it will average the current point with the last point of the sample. Suprisingly such an easy algorithm, will create pleasing sounds. However, as there are a lot of points in the sample, the wave will decay very quickly, thus making only very short sounds.
+
+A more complex version of this algorithm and the one we will use is, the 'decay karplus-strong algorithm'. This employs what is called a stretch factor: Instead of averaging every point with the last one, it will only do so with a probability of 1/stretch_factor, which has to be at least bigger than 1. This allows for much longer sounds, that are still very pleasent to listen to. Interestingly, by changing the stretch factor, we also somewhat change the timbre of the sound produced, giving a great variety of freedom for the production of sound.
+
+Below is a sample of C major created with this sound algorithm with different stretch factors:
+
+![Sound Algorithm Sample](demos/Sounddemo.mp3)
 
 ### GUI
 
 The GUI has been designed using Qt Creator. While still a prototype, this GUI is manly used to more freely choose between what algorithm one wishes to use. In the GUI, one should press the button, which should start the Image-Sound-Arduino Algorithm, with the chosen conversion method as its principle.
 
-Other function, that have implemented is a widget according to which the user has a free choice of what color corresponds to the lowest tone. By default, this is red, it having 0/360 Hue value. However, with this method one could choose what value corresponds to 0, by subtracting the desired Hue from 360. 
+Another aspect of the GUI is its color wheel. This was implemented in order for the user to select which color should be considered as the base tone. By default, according to HSV color model, this is red (0 Hue). However, using this, we can 'rotate' the color wheel, so that any color the user selects can be considered the base color. We do this, by subtracting any Hue value the image analyzes from the selected Hue value and selecting this, as the new color for the Sound Algorithm to analyze. In case that this subtraction is negative, it will be subtracted from 360 instead. Something similar is done with the Saturation and Value parameters.
+
+An image of the GUI is shown below:
+
+![GUI](demos/GUI.jpg)
 
 ### Creating a Melody
 
@@ -144,6 +173,8 @@ In this example we have reversed the sound translation code to create colors fro
 ![Joy](demos/Odeofjoy.png)
 
 In this code we made use of the pydub lybrary to edit the sound files ina intuitive way.
+
+
 ### The scanner
 
 To build the scanner we took inspiration on how 3D printers are designed, in our case a two axes system was necessary instead of three.
@@ -153,18 +184,28 @@ The skeleton of the scanner was a wooden box, large enought to house the compone
 
 ## Motivation and importance
 
-Our project came from the idea to create a tool for artists and musicians to seek inspiration on other sources. The translation of colors to sound at a ceartain point in our project became the main theme, the possibilities were multiple and the ones we settled on served our porporse.
+Our project came from the idea to create a platform for artists and musicians to explore different sounds in relation to different images. A vital part of our project is the image to sound translation. While we have found multiple ways to transform images to sounds, as written above, we encourage the reader to come up with their own unique and creative new methods of translation.
+
+Inspiration for this project included the works of Jay Alan Zimmerman, who has shown to replicate a version of Chromoaesthesia. He employed machine learning in order for the colors to look unique while retaining the principal information of the sound. His work can be found at https://experiments.withgoogle.com/seeing-music.
+
 Similar technologies of translation of visual information to sound have been used by Doctor Amedi's lab (https://www.brainvisionrehab.com/) to create a device that translates distance into different sounds. By doing this the group has helped blind individuals avoid head collisions with objects and better slef locate themselves.
-Here, our project could be used to help colorblind and blind individuals to experience the difference between colors, by translating those to heaaring information.
+
+Here, our project could be used to help colorblind and blind individuals to experience the difference between colors. By attaching certain colors to certain sounds, certainly anyone could therby distinguish between any number of colors.
 
 
 ## Future directions
 
-Our project can be further developed, this is partially why we are posting it here so other people can build on top of what we have done.
-Some ideas we had, but didn't have time to implement were: 
-Modifying the sound algorithm to produce sounds that more closely resemble instruments, by adding a attack time, a hold time and utilize other periodic functions instead of pure sine waves, like saw shape function.
-Develop other translation methods.
-Increase the speed of the sound generation and come to closer to a real time translation.
+While we are proud of the development of our project in this short amount of time, we admit that there are a lot of things that can still be archieved in this project. We encourage the reader to use this code to develop their own methods of translation and code to improve the experience to be had when listening to image-processed sound.
+
+Specifically, some ideas we had but due to lack of time couldn't fully implement were:
+
+ * Modifying the sound algorithm to produce sounds that more closely resemble instruments, by adding a attack time and a hold time.
+ 
+ * Rather than using the Karplus-Strong Algorithm, utilize other periodic functions like square or saw shape function.
+
+ * Develop other translation methods.
+
+ * Increase the speed of the sound generation, thus coming closer to real time translation.
 
 
 
