@@ -144,7 +144,7 @@ A more complex version of this algorithm and the one we will use is, the 'decay 
 
 Below is a sample of C major created with this sound algorithm with different stretch factors:
 
-![Sound Algorithm Sample](demos/Sounddemo.mp3)
+![Sound Algorithm Sample](demos/Sounddemo.wav)
 
 ### GUI
 
