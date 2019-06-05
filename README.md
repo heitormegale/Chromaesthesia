@@ -2,7 +2,7 @@
 Developed by: Daniele Offidani, Heitor Megale and Sven Witthaus.
 
 
-This is a python project where we convert colors from an image to a melody. Our objective was to simulate a type of synaesthesia. Synaesthesia is a sensorial condition where different senses activate each other, that is the perception of one sense leads to an involuntary perception of another sense. Examples of synaesthesia include Mirror-touch synaesthesia or Auditary-tactile synaesthesia. We however, focused on Chromaesthesia, the natural condition where sounds produce a sensation of color. Specifically we have tried replicating reverse synaesthesia, that is the conversion of image to color.
+This is a python project where we convert colors from an image to a melody. Our objective was to simulate a type of synaesthesia. Synaesthesia is a sensorial condition where different senses activate each other, that is the perception of one sense leads to an involuntary perception of another sense. Examples of synaesthesia include Mirror-touch synaesthesia or Auditary-tactile synaesthesia. We however, focused on Chromaesthesia, the natural condition where sounds produce a sensation of color. Specifically we have tried to replicate reverse synaesthesia, that is the conversion of image to color.
 
 
 On top of the programing we built a mechanical scanner that moves a camera to take multiple pictures of the image being analyzed. Each picture is transformed into three tones and the full image will sound like a music.
@@ -11,7 +11,7 @@ On top of the programing we built a mechanical scanner that moves a camera to ta
 The code can be used independently of the scanner and it can analyze pictures in your computer or an image from your webcamera. However, in this case it would produce a individual sound since it analyzes one picture. You could modify the code to run throught multiple images and produce a song or analyze piece by piece an individual image.
 
 
-Since the maping of sounds to color varies from person to person with Chrmaestesia, there is no clear pattern to follow and it is open to artistic interpretation.Because the sensation is very unique and doesn't follow a pattern across who has the condition, our task to reverse this process isn't dictated by any defined translation. Thus, we created multiple methods, each with its downsides and upsides, that we will describe later. Of course, anyone is encouraged to expand on these methods with innovative ideas that could improve the experience.
+Since the maping of sounds to color varies from person to person with Chrmaestesia, there is no clear pattern to follow and it is open to artistic interpretation. Because the sensation is very unique and doesn't follow a pattern across who has the condition, our task to reverse this process isn't dictated by any defined translation. Thus, we created multiple methods, each with its downsides and upsides, that we will describe later. Of course, anyone is encouraged to expand on these methods with innovative ideas that could improve the experience.
 
 The following is an example of an image scanned in a grid of XxY and the sound output produced:
 
@@ -90,16 +90,17 @@ As a demonstration, if you run ``` Programwithout_ardu.py ``` you will be asked 
  The sript ``` ImageAlgorithm.py``` is the responsable for analyzing the given picture.
  This uses the popular method of k-clustering. Interestingly enough, typically this works using coordinates, rather than colors. But, using the RGB color scheme, which can be visualized as a square, we can pretend that the coordinates are actually RGB values and distances are Pythagorean distances from each other.
  
- This works, by initially selecting some 'centroids'. Next, we can run through all other points in that image, computing the distance to the closest centroid. After this, knowing which points are attributed to what cluster, we can average the coordinates. This will find the new centroid. Now we can run the method again, by finding the distance to the newest closest cluster. If none of the points switched from the last iteration to the next, we can say that we have found an equilibrium and thus have found the 3 most dominant colors. If not, it will require a new iteration, to find a closer centroid.
+ This works, by initially selecting some 'centroids'. Next, we can run through all other points in that image, computing the RGB distance to the closest centroid. After this, knowing which points are attributed to what cluster, we can average the coordinates. This will find the new centroid. Now we can run the method again, by finding the distance to the newest closest cluster. If none of the points switched from the last iteration to the next, we can say that we have found an equilibrium and thus have found the 3 most dominant colors. If not, it will require a new iteration, to find a closer centroid.
 
 Thus, after running the k-means algorithmm with the image we obtain the 3 most dominant colors of the image. We then, convert these colors to HSV (Hue-Saturation-Value), as this will work better with our idea of the color-sound algorithm. The code is generalized, so the algorithm can detect the n most dominant colors of the image by simply changing the following line:
 ```pythonscript
 Clusters = KMeans(n_clusters=3, random_state=0).fit(points)
 ```
-However, while it is easy to change the number of colors here, the rest of our codes like the sound algorithm was designed to work with three colors. Thus one would need to generalize the rest of the code in order to do that.
+However, while it is easy to change the number of colors here, the rest of our codes, like the sound algorithm, was designed to work with three colors. Thus one would need to generalize the rest of the code in order to do that.
 
 The following gif illustrates our procedure, where each large dot corresponds to the center of mass of the clusters, and just like in our algorithm the centers get more exact in each iteration.
 ![K-means](demos/centroidsEvolutionkmeans.gif) 
+
  Image from: http://enhancedatascience.com/2017/10/24/machine-learning-explained-kmeans/
  
  ### Arduino Code
@@ -142,7 +143,7 @@ Generally, this method creates a wavetable, that is inversely proportional to th
 
 A more complex version of this algorithm and the one we will use is, the 'decay karplus-strong algorithm'. This employs what is called a stretch factor: Instead of averaging every point with the last one, it will only do so with a probability of 1/stretch_factor, which has to be at least bigger than 1. This allows for much longer sounds, that are still very pleasent to listen to. Interestingly, by changing the stretch factor, we also somewhat change the timbre of the sound produced, giving a great variety of freedom for the production of sound.
 
-Below is a sample of C major created with this sound algorithm with different stretch factors:
+Below is a sample of C major created with this sound algorithm with the same stretch factors:
 
 ![Sound Algorithm Sample](demos/Sounddemo.wav)
 
@@ -188,7 +189,7 @@ Our project came from the idea to create a platform for artists and musicians to
 
 Inspiration for this project included the works of Jay Alan Zimmerman, who has shown to replicate a version of Chromoaesthesia. He employed machine learning in order for the colors to look unique while retaining the principal information of the sound. His work can be found at https://experiments.withgoogle.com/seeing-music.
 
-Similar technologies of translation of visual information to sound have been used by Doctor Amedi's lab (https://www.brainvisionrehab.com/) to create a device that translates distance into different sounds. By doing this the group has helped blind individuals avoid head collisions with objects and better slef locate themselves.
+Similar technologies of translation of visual information to sound have been used by Doctor Amedi's lab (https://www.brainvisionrehab.com/) to create a device that translates distance into different sounds. By doing this the group has helped blind individuals avoid head collisions with objects and better self locate themselves.
 
 Here, our project could be used to help colorblind and blind individuals to experience the difference between colors. By attaching certain colors to certain sounds, certainly anyone could therby distinguish between any number of colors.
 
@@ -199,7 +200,7 @@ While we are proud of the development of our project in this short amount of tim
 
 Specifically, some ideas we had but due to lack of time couldn't fully implement were:
 
- * Modifying the sound algorithm to produce sounds that more closely resemble instruments, by adding a attack time and a hold time.
+ * Modifying the sound algorithm to produce sounds that more closely resemble instruments, by adding a attack time and a sustain time.
  
  * Rather than using the Karplus-Strong Algorithm, utilize other periodic functions like square or saw shape function.
 
