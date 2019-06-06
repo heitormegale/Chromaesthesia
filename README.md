@@ -168,7 +168,7 @@ The overlap is based on the length of the file, thus if the files have the same 
 The initial part of the sound and the overlap are stiched toghether, then the process will be repeated for all sounds, being mindfull that they should start at the end of the last one.
 An example of a final melody can be found below:
 
-![Odeofjoy](demos/Odeofjoy.mp3) 
+![Odeofjoy](demos/Odeofjoy.wav) 
 
 In this example we have reversed the sound translation code to create colors from sounds, thus we created the following image and scanned it to produce the sound above.
 ![Joy](demos/Odeofjoy.png)
