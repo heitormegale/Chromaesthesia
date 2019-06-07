@@ -18,7 +18,17 @@ The following is an example of an image scanned in a grid of XxY and the sound o
 ![DemoImage](demos/demo.jpg)  
 
 
-![DemoAudio](demos/demosong1.mp3)  
+![DemoAudio](demos/demosong1.mp3)
+
+## Motivation and importance
+
+Our project came from the idea to create a platform for artists and musicians to explore different sounds in relation to different images. A vital part of our project is the image to sound translation. While we have found multiple ways to transform images to sounds, as written above, we encourage the reader to come up with their own unique and creative new methods of translation.
+
+Inspiration for this project included the works of Jay Alan Zimmerman, who has shown to replicate a version of Chromoaesthesia. He employed machine learning in order for the colors to look unique while retaining the principal information of the sound. His work can be found at https://experiments.withgoogle.com/seeing-music.
+
+Similar technologies of translation of visual information to sound have been used by Doctor Amedi's lab (https://www.brainvisionrehab.com/) to create a device that translates distance into different sounds. By doing this the group has helped blind individuals avoid head collisions with objects and better self locate themselves.
+
+Here, our project could be used to help colorblind and blind individuals to experience the difference between colors. By attaching certain colors to certain sounds, certainly anyone could therby distinguish between any number of colors.
 
 ## Necessary libraries and instalation
 
@@ -174,18 +184,21 @@ The overlap is based on the length of the file, thus if the files have the same 
 
 The initial part of the sound and the overlap are stiched toghether, then the process will be repeated for all sounds, being mindfull that they should start at the end of the last one.
 
-An example of a final melody can be found below, as it is noticible the sounds are attached toghether and we don't allow them to fully decay befor the next sound is played.
+All examples in the sections bellow were created utilizing this method.
+
+In this code we made use of the pydub lybrary to edit the sound files in an intuitive way.
 
 ### Reverse Translation
+In this example we have reversed the sound translation code to create colors from sounds, thus we created the following image and scanned it to produce the sound above.
 
 An example of a final melody can be found below:
 
 ![Odeofjoy](demos/Odeofjoy.wav) 
 
-In this example we have reversed the sound translation code to create colors from sounds, thus we created the following image and scanned it to produce the sound above.
-![Joy](demos/Odeofjoy.png)
 
-In this code we made use of the pydub lybrary to edit the sound files in an intuitive way.
+![Joy](demos/Odeofjoy1.png)
+
+
 
 
 ### The scanner
@@ -195,15 +208,7 @@ The skeleton of the scanner was a wooden box, large enought to house the compone
 
 
 
-## Motivation and importance
 
-Our project came from the idea to create a platform for artists and musicians to explore different sounds in relation to different images. A vital part of our project is the image to sound translation. While we have found multiple ways to transform images to sounds, as written above, we encourage the reader to come up with their own unique and creative new methods of translation.
-
-Inspiration for this project included the works of Jay Alan Zimmerman, who has shown to replicate a version of Chromoaesthesia. He employed machine learning in order for the colors to look unique while retaining the principal information of the sound. His work can be found at https://experiments.withgoogle.com/seeing-music.
-
-Similar technologies of translation of visual information to sound have been used by Doctor Amedi's lab (https://www.brainvisionrehab.com/) to create a device that translates distance into different sounds. By doing this the group has helped blind individuals avoid head collisions with objects and better self locate themselves.
-
-Here, our project could be used to help colorblind and blind individuals to experience the difference between colors. By attaching certain colors to certain sounds, certainly anyone could therby distinguish between any number of colors.
 
 ## Results
 
@@ -224,6 +229,8 @@ As we can notice the sounds are similar, but the exponential with thresholds the
 We also utilized bith the exponential with and without thresholds to the following image:
 
 ![Pic](demos/Pic.png)
+
+Image from: https://designwrld.com/oil-finger-paintings-iris-scott/ by Iris Scott.
 
 ![Picexp](demos/Pic_exp.wav)
 
