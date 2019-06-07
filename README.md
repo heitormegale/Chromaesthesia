@@ -20,7 +20,7 @@ The following is an example of an image scanned in a grid of 4x6 and the sound o
 
 ![DemoAudio](demos/demosong1.mp3)
 
-Painting Saffron, 1957, by Mark Rothko
+Painting: Saffron, 1957, by Mark Rothko
 
 ## Motivation and importance
 
