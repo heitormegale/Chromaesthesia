@@ -246,8 +246,8 @@ Specifically, some ideas we had but due to lack of time couldn't fully implement
  * Increase the speed of the sound generation, thus coming closer to real time translation.
  
  * Automize the Reverse Algorithm to create pictures with a given sound
-
-
+ 
+ * Use the saturation and value of the colors analyzed to produced different sounds, rather than relying solely on the Hue
 
 
 
