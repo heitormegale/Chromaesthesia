@@ -211,11 +211,11 @@ To compare the three different translation algorithms we have the image bellow s
 
 ![Rainbow](demos/Rainbow.png)
 
-![Rexp](demos/Rainbow_exp.wav)
+![Rexp](demos/Rainbow_exp1.wav)
 
-![Rlinear](demos/Rainbow_linear.wav) 
+![Rlinear](demos/Rainbow_linear1.wav) 
 
-![Rraw](demos/Rainbow_raw.wav)
+![Rraw](demos/Rainbow_raw1.wav)
 
 As we can notice the sounds are similar, but the exponential with thresholds the higher pitch notes are more noticle since the thresholds shifts some of the colors to those notes.
 
@@ -225,9 +225,9 @@ We also utilized bith the exponential with and without thresholds to the followi
 
 Image from: https://designwrld.com/oil-finger-paintings-iris-scott/ by Iris Scott.
 
-![Picexp](demos/Pic_exp.wav)
+![Picexp](demos/Pic_exp1.wav)
 
-![Picraw](demos/Pic_raw.wav)
+![Picraw](demos/Pic_raw1.wav)
 
 Here the higher notes will correspond to the blue background, while the lower notes represents the figure in the center and also the bottom of the picture.
 
