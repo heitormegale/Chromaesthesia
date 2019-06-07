@@ -135,7 +135,7 @@ In order to get other ranges of pitch, the trigger system used for the linear fi
 
 ### Sound Algorithm
 
-The Sound Algorithm was designed for the user to input 3 different edited colors, that is 3 frequencies, 3 stretch factors and 3 volumes. These values then will generate a note using these three parameters in unison as output. This script has been saved as 'FINALAUDIO.py'
+The Sound Algorithm was designed for the user to input 3 different edited colors, that is 3 frequencies, 3 stretch factors and 3 volumes. These values then will generate a note using these three parameters in unison as output. This script has been saved as ```FINALAUDIO.py```
 
 More specifically, the program mainly consist of a 'Sound' function, that will generate the desired sound, which the main algorithm will then thread together to create a unison sound. The Sound Algorithm uses a method called karplus-strong method, which is a popular technique in digital sound creation, that creates pleasent sound and still being very cheap. A detailed description of the algorithm is listed in the paper: 'Digital Synthesis of Plucked-String and Drum Timbres' (Karplus-Strong, 1983)
 
@@ -146,6 +146,13 @@ A more complex version of this algorithm and the one we will use is, the 'decay 
 Below is a sample of C major created with this sound algorithm with the same stretch factors:
 
 ![Sound Algorithm Sample](demos/Sounddemo.wav)
+
+On top of the Karplus-Strong method, we also developed another sound function, a saw shape sound. This sound is performed by the code ```Sawsound.py```, here the sound is the combination of three sine waves with frequencies separated by two pi, this was prefered over the complete saw wave sound since it is more natural and has a more plesing sound.
+This code, however, doesn't work with three colors. We used this sound when we scanned images that had one color per image. This type of image will be futher explained in the "Reverse Translation" section. In this code we used the saturation of the color as proportional to the decay that we added multiplying the saw wave by an exponential function. Here the volume will be also proportional to the value of the color.
+
+Below is a sample of C major created with this sound algorithm with the same stretch factors:
+
+![Saw Sound Sample](demos/Sawdemo.wav)
 
 ### GUI
 
@@ -166,6 +173,11 @@ time_overlap=3*len(file_ii)/4
 The overlap is based on the length of the file, thus if the files have the same length the end result will play at a constant bpm.
 
 The initial part of the sound and the overlap are stiched toghether, then the process will be repeated for all sounds, being mindfull that they should start at the end of the last one.
+
+An example of a final melody can be found below, as it is noticible the sounds are attached toghether and we don't allow them to fully decay befor the next sound is played.
+
+### Reverse Translation
+
 An example of a final melody can be found below:
 
 ![Odeofjoy](demos/Odeofjoy.wav) 
@@ -173,7 +185,7 @@ An example of a final melody can be found below:
 In this example we have reversed the sound translation code to create colors from sounds, thus we created the following image and scanned it to produce the sound above.
 ![Joy](demos/Odeofjoy.png)
 
-In this code we made use of the pydub lybrary to edit the sound files ina intuitive way.
+In this code we made use of the pydub lybrary to edit the sound files in an intuitive way.
 
 
 ### The scanner
@@ -193,6 +205,31 @@ Similar technologies of translation of visual information to sound have been use
 
 Here, our project could be used to help colorblind and blind individuals to experience the difference between colors. By attaching certain colors to certain sounds, certainly anyone could therby distinguish between any number of colors.
 
+## Results
+
+To examplify what we were abble to accomplish utilizing this scanner and the multiple sound algorithms we show here some results.
+
+To compare the three different translation algorithms we have the image bellow scanned in the same grid using each of this translation methods, here the arrow indicates the direction we scanned, from red to blue:
+
+![Rainbow](demos/Rainbow.png)
+
+![Rexp](demos/Rainbow_exp.wav)
+
+![Rlinear](demos/Rainbow_linear.wav) 
+
+![Rraw](demos/Rainbow_raw.wav)
+
+As we can notice the sounds are similar, but the exponential with thresholds the higher pitch notes are more noticle since the thresholds shifts some of the colors to those notes.
+
+We also utilized bith the exponential with and without thresholds to the following image:
+
+![Pic](demos/Pic.png)
+
+![Picexp](demos/Pic_exp.wav)
+
+![Picraw](demos/Pic_raw.wav)
+
+Here the higher notes will correspond to the blue background, while the lower notes represents the figure in the center and also the bottom of the picture.
 
 ## Future directions
 
@@ -202,7 +239,7 @@ Specifically, some ideas we had but due to lack of time couldn't fully implement
 
  * Modifying the sound algorithm to produce sounds that more closely resemble instruments, by adding a attack time and a sustain time.
  
- * Rather than using the Karplus-Strong Algorithm, utilize other periodic functions like square or saw shape function.
+ * Rather than using the Karplus-Strong Algorithm, utilize other periodic functions.
 
  * Develop other translation methods.
 
