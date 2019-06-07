@@ -207,7 +207,7 @@ As one can hear, these sounds were not perfect pitch. This is most likely due to
 To build the scanner we took inspiration on how 3D printers are designed, in our case a two axes system was necessary instead of three.
 The skeleton of the scanner was a wooden box, large enought to house the components and to scan a sizable paper. The first motor is attached to the bottom with a belt connecting its pulley to an upper gear. This one is connected to an axel that rotates two other pulleys. Each one of those, locatted in the corner of the box, rotates a belt that will slide a pice throught a rod. This piece was designed by us and it is in the folder ``` 3d Designs``` as ```axisconnector.f3d```. Its function is to slide in one axis, pulled by the belt, while supporting the machinery that will move the second axis. We set up another axis using this two connectors, the second motor on one and a puley fixed to the other. The belt taht is moved will slide the camera house (```camera_house.f3d```), so that the camera can now cover the xy plane.
 
-Below is a picture of our computer aided desing, were it is possible to see were the 3D printed parts are supposed to go. This desing has the spaces for the parts that we bougth, like the rods and bearings, but those are not shown since we didn't need to fanufacture them.
+Below is a picture of our computer aided desing, where it is possible to see where the 3D printed parts are supposed to go. This desing has the spaces for the parts that we bougth, like the rods and bearings, but those are not shown since we didn't need to fanufacture them.
 
 ![CAD](demos/CAD.png)
 
