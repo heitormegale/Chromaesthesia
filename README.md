@@ -50,12 +50,6 @@ Apart from the conventional libraries you will need the following:
 
 * glob
 
-In order to visualize the colors we have implemented a function, to try to visualize the most dominant colors promted. For this, one will need the libraries:
-
-* seaborn
-
-* webcolors
-
 Another aspect of our code is the GUI, which, while still in a primitive state requires installation of:
 
 * PyQt5
@@ -63,7 +57,7 @@ Another aspect of our code is the GUI, which, while still in a primitive state r
 Cv2 might be the trickest to install, however you can find instructions on their website https://pypi.org/project/opencv-python/ ,
 while the others can be installed by running ``` pip install 'library' ``` on your python shell command prompt.
 
-PyAudio is also, one of the libraries to be cautious of. Pyaudio is somewhat outdated, making the process of installing it tricky depending on what device you are using. Specificially, one should look into portaudio error files.
+PyAudio is also one of the libraries to be cautious of. Pyaudio is somewhat outdated, making the process of installing it tricky depending on what device you are using. Specificially, one should look into portaudio error files.
 
 The program utilizes three folders in the directory of your choice to store the sounds that will be used during the composition.
 To create this folders download the ``` Setup.py ``` script and alocate it to the directory you want he program to be ran and used.
@@ -90,7 +84,7 @@ Once the setup is ran you will need to alocate all the following scripts to the 
  
  The role each of these scripts plays in the project is explained in their own descriptions and will also be examplified here.
  
-As a demonstration, if you run ``` Programwithout_ardu.py ``` you will be asked which translation technique you want to use, chose one and it should capture an image from your webcamera and produce one sound. This sound is in reality the overlap of three tones extracted from the image, if you check your ``` SeparateSounds``` folder, you can hear each individual tone.
+As a demonstration, if you run ``` Program_without_ardu.py ``` you will be asked which translation technique you want to use, chose one and it should capture an image from your webcamera and produce one sound. This sound is in reality the overlap of three tones extracted from the image, if you check your ``` SeparateSounds``` folder, you can hear each individual tone.
 
 
 
@@ -189,19 +183,18 @@ All examples in the sections bellow were created utilizing this method.
 In this code we made use of the pydub lybrary to edit the sound files in an intuitive way.
 
 ### Reverse Translation
-In this example we have reversed the sound translation code to create colors from sounds, thus we created the following image and scanned it to produce the sound above.
 
-An example of a final melody can be found below:
+In order for us to understand sound translation better, we have decided to try to reverse the sound algorithm, in order to create images for some popular music. Since our melody algorithm does not allow for complex rhythms, we have decided to go for songs, with relatively uniform sound. We have decided to use Beethoven's Ode to Joy. Thus, by reversing the algorithms and scanning the resulting image, we were able to produce the following audio:
 
 ![Odeofjoy](demos/Odeofjoy.wav) 
 
 
 ![Joy](demos/Odeofjoy1.png)
 
+As one can hear, these sounds were not perfect pitch. This is most likely due to systematic imperfections in our setup, such as the camera resolution or the printing method.
 
 
-
-### The scanner
+### The Scanner
 
 To build the scanner we took inspiration on how 3D printers are designed, in our case a two axes system was necessary instead of three.
 The skeleton of the scanner was a wooden box, large enought to house the components and to scan a sizable paper. The first motor is attached to the bottom with a belt connecting its pulley to an upper gear. This one is connected to an axel that rotates two other pulleys. Each one of those, locatted in the corner of the box, rotates a belt that will slide a pice throught a rod. This piece was designed by us and it is in the folder ``` 3d Designs``` as ```axisconnector.f3d```. Its function is to slide in one axis, pulled by the belt, while supporting the machinery that will move the second axis. We set up another axis using this two connectors, the second motor on one and a puley fixed to the other. The belt taht is moved will slide the camera house (```camera_house.f3d```), so that the camera can now cover the xy plane.
@@ -251,6 +244,8 @@ Specifically, some ideas we had but due to lack of time couldn't fully implement
  * Develop other translation methods.
 
  * Increase the speed of the sound generation, thus coming closer to real time translation.
+ 
+ * Automize the Reverse Algorithm to create pictures with a given sound
 
 
 
