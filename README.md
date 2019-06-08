@@ -33,7 +33,7 @@ Similar technologies of translation of visual information to sound have been use
 Here, our project could be used to help colorblind and blind individuals to experience the difference between colors. By relating certain colors to particular sounds, anyone could therby distinguish between various different colors.
 
 
-## Necessary libraries and instalation
+## Necessary libraries and installation
 
 You will need several python lybraries and programs in order to execute our project.
 
