@@ -15,8 +15,6 @@ The following is an example of an image scanned in a grid of 4x6 and the sound o
 <p align="center">
   <img src=demos/demo.jpg>
 </p>
-![DemoImage](demos/demo.jpg)  
-
 
 ![DemoAudio](demos/demosong1.mp3)
 
@@ -113,8 +111,11 @@ Clusters = KMeans(n_clusters=3, random_state=0).fit(points)
 ```
 
 However, while it is easy to change the number of colors here, the rest of our codes, like the sound algorithm, was designed to work with three colors. Thus one would need to generalize the rest of the code in order to do that.
-The following gif illustrates our procedure, where each large dot corresponds to the center of mass of the clusters, and just like in our algorithm the centers get more exact 
-![K-means](demos/centroidsEvolutionkmeans.gif) 
+The following gif illustrates our procedure, where each large dot corresponds to the center of mass of the clusters, and just like in our algorithm the centers get more exact
+
+<p align="center">
+  <img src=demos/centroidsEvolutionkmeans.gif>
+</p>
 
  Image from: http://enhancedatascience.com/2017/10/24/machine-learning-explained-kmeans/
  
@@ -182,7 +183,9 @@ Another aspect of the GUI is its color wheel. This was implemented in order for 
 
 An image of the GUI is shown below:
 
-![GUI](demos/GUI.jpg)
+<p align="center">
+  <img src=demos/GUI.jpg>
+</p>
 
 ### Creating a Melody
 
@@ -216,8 +219,9 @@ The skeleton of the scanner was a wooden box, large enough to house the componen
 
 Below is a picture of our computer aided design, where it is possible to see where the 3D printed parts are supposed to go. This design has the spaces for the parts that we bought, like the rods and bearings, but those are not shown since we didn't need to manufacture them.
 
-
-![CAD](demos/CAD.png)
+<p align="center">
+  <img src=demos/CAD.png>
+</p>
 
 
 
@@ -227,7 +231,9 @@ To exemplify what we were able to accomplish utilizing this scanner and the mult
 
 To compare the three different translation algorithms we have the image bellow scanned in the same grid using each of this translation methods, here the arrow indicates the direction we scanned, from red to blue:
 
-![Rainbow](demos/Rainbow.png)
+<p align="center">
+  <img src=demos/rainbow.png>
+</p>
 
 ![Rexp](demos/Rainbow_exp1.wav)
 
@@ -239,7 +245,9 @@ As we can notice the sounds are similar, but the exponential with thresholds the
 
 We also utilized bith the exponential with and without thresholds to the following image:
 
-![Pic](demos/Pic.png)
+<p align="center">
+  <img src=demos/Pic.png>
+</p>
 
 Image from: https://designwrld.com/oil-finger-paintings-iris-scott/ by Iris Scott.
 
