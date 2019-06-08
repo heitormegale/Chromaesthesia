@@ -12,7 +12,9 @@ Since the mapping of sounds to color varies from person to person with Chromaest
     
 The following is an example of an image scanned in a grid of 4x6 and the sound output produced:
 
-
+<p align="center">
+  <img width="460" height="300" src=demos/demo.jpg>
+</p>
 ![DemoImage](demos/demo.jpg)  
 
 
