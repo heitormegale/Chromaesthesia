@@ -184,7 +184,7 @@ Another aspect of the GUI is its color wheel. This was implemented in order for 
 An image of the GUI is shown below:
 
 <p align="center">
-  <img src=demos/GUI.jpg>
+  <img src=demos/GUI.png>
 </p>
 
 ### Creating a Melody
@@ -207,8 +207,9 @@ In order for us to understand sound translation better, we have decided to try t
 
 ![Odeofjoy](demos/Odeofjoy.wav) 
 
-
-![Joy](demos/Odeofjoy1.png)
+<p align="center">
+  <img src=demos/Odeofjoy1.png>
+</p>
 
 As one can hear, these sounds were not perfect pitch. This is most likely due to systematic imperfections in our setup, such as the camera resolution or the printing method.
 
@@ -232,7 +233,7 @@ To exemplify what we were able to accomplish utilizing this scanner and the mult
 To compare the three different translation algorithms we have the image bellow scanned in the same grid using each of this translation methods, here the arrow indicates the direction we scanned, from red to blue:
 
 <p align="center">
-  <img src=demos/rainbow.png>
+  <img src=demos/Rainbow.png>
 </p>
 
 ![Rexp](demos/Rainbow_exp1.wav)
