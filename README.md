@@ -220,7 +220,10 @@ In this code we made use of the pydub library to edit the sound files in an intu
 
 ### Reverse Translation
 
-In order for us to understand sound translation better, we have decided to try to reverse the sound algorithm, in order to create images for some simple melodies. We did this using the same translation formula, but going this time from frequency to Hue. One limitation of this method is the fact that we could only translate songs that span over one octave. Since our melody algorithm does not allow for complex rhythms, we have decided to go for songs, with relatively uniform sound. We have decided to use Beethoven's Ode to Joy. Thus, by reversing the algorithms and scanning the resulting image, we were able to produce the following audio:
+In order for us to understand sound translation better, we have decided to try to reverse the sound algorithm, in order to create images for some simple melodies. We did this using the same translation formula, but this time translating frequency to a Hue Value. In order to simplify our image creation, we have decided to let saturation and value be constantly 100%. 
+
+One limitation of this method is the fact that we could only translate songs that span over one octave. Since our melody algorithm does not allow for complex rhythms, we have decided to go for songs, with relatively uniform sound. We have decided to use Beethoven's Ode to Joy. 
+Thus, by reversing the algorithms and scanning the resulting image, we were able to produce the following audio:
 
 ![Odeofjoy](demos/Odeofjoy.wav) 
 
@@ -259,7 +262,7 @@ To compare the three different translation algorithms we have the image bellow s
 
 ![Rraw](demos/Rainbow_raw1.wav)
 
-As we can notice the sounds are similar, but in the exponential with thresholds translation the higher pitch notes are more noticeable, since the thresholds shifts some of the colors to those notes.
+As we can notice the sounds are very similar, with the notable difference of the 'Exponential with thresholds' - algorithm having noticeably higher pitch, since the thresholds shifted some of the colors to these higher notes.
 
 We also utilized both the exponential with and without thresholds for the following image:
 
