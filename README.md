@@ -18,6 +18,8 @@ The following is an example of an image scanned in a grid of 4x6 and the sound o
 
 ![DemoAudio](demos/demosong1.mp3)
 
+For reasons unknown to us the audio files are not playable on any browser except for Firefox. We apologize for the inconvenience.
+
 Painting: Saffron, 1957, by Mark Rothko
 
 ## Motivation and importance
