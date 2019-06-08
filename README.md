@@ -151,7 +151,7 @@ In order to get other ranges of pitch, the trigger system used for the linear fi
 
 ### Sound Algorithm
 
-The Sound Algorithm was designed for the user to input 3 different edited colors, that is 3 frequencies, 3 stretch factors and 3 volumes. These values then will generate a note using these three parameters in unison as output. This script has been saved as ```FINALAUDIO.py```
+The Sound Algorithm was designed for the user to input 3 different edited colors, that is 3 frequencies, 3 stretch factors and 3 volumes. These values then will generate a note using these three parameters in unison as output. This script has been saved as ```Audioproduction.py```
 
 More specifically, the program mainly consist of a 'Sound' function, that will generate the desired sound, which the main algorithm will then thread together to create a unison sound. The Sound Algorithm uses a method called Karplus-Strong method, which is a popular technique in digital sound creation, that creates pleasant sound and still being very cheap. A detailed description of the algorithm is listed in the paper: 'Digital Synthesis of Plucked-String and Drum Timbres' (Karplus-Strong, 1983)
 
@@ -189,7 +189,7 @@ An image of the GUI is shown below:
 
 ### Creating a Melody
 
-The python script ```MelodyCreator.py``` is the responsible for combining all the individual sounds into a final melody. It does that by separating the first sound file into two parts. The second part will be combined with a segment of the next sound with the same length. By doing this we overlap the decay of one sound with the begging of the other, giving it a more natural sound. Notice that you can change this overlap by changing the following value:
+The python script ```Finalsongoutput.py``` is the responsible for combining all the individual sounds into a final melody. It does that by separating the first sound file into two parts. The second part will be combined with a segment of the next sound with the same length. By doing this we overlap the decay of one sound with the begging of the other, giving it a more natural sound. Notice that you can change this overlap by changing the following value:
 ```pythonscript
 time_overlap=3*len(file_ii)/4
 ```
