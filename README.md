@@ -83,7 +83,20 @@ createFolder(os.path.join(directory,'Separate_Sounds'))
 ```
 
 Once the setup is ran you will need to alocate all the following scripts to the same folder you allocated and ran ``` Setup.py ```.
- * all the codes
+
+ * ```MainScript.py```
+ 
+ * ```MainScript_NoArdu.py```
+ 
+ * ```Audioproduction.py```
+ 
+ * ```Finalsongoutput.py```
+ 
+ * ```SawAlgorithm.py```
+ 
+ * ```ImageAlgorithm.py```
+ 
+ * ```arduino_communication_with_python.ino```
  
  The role each of these scripts plays in the project is explained in their own descriptions and will also be examplified here.
  
